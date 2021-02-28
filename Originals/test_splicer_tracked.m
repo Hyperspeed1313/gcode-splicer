@@ -1,15 +1,5 @@
 % Newline is char(10)
 
-doc_num = 1;
-[gcode{doc_num}.filename,gcode{doc_num}.filepath] = uigetfile('*.gcode');
-if fid == 0
-	return
-end
-
-fid = fopen(fullfile(gcode{doc_num}.filepath,gcode{doc_num}.filename));
-gcode{doc_num}.raw_text = char(fread(fid))';
-fclose(fid);
-
 gcode{doc_num}.newlines = [0,find(raw_text == char(10)),numel(raw_text)+1];
 gcode{doc_num}.n_lines = length(newlines)-1;
 

@@ -1,21 +1,26 @@
+% Not a function in order to share main workspace scope
+
 % This whole file would be better done with object oriented programming (i.e. classes)
-version_number = '0.0.1'
+version_number = '0.0.1';
 
 %% Compiler Constants
+global compiler;
+compiler.active = 'cura';
 compiler.cura.layer_marker = "^;LAYER:[0-9]+";
 
-%% gcode Language/flavor Constants
-% For regexp calls, append ^ at the front and a space at the end
-language.marlin.movement_call = 'G0';
-language.marlin.e_movement_call = 'G1';
-language.marlin.absolute_mode_call = 'G90';
-language.marlin.relative_mode_call = 'G91';
-language.marlin.set_position_call = 'G92';
-language.marlin.pause_print_call = 'M25';
+%% gcode flavor Constants
+global flavor;
+flavor.active = "marlin";
+flavor.marlin.movement_call = '^G0 ';
+flavor.marlin.e_movement_call = '^G1 ';
+flavor.marlin.absolute_mode_call = '^G90 ';
+flavor.marlin.relative_mode_call = '^G91 ';
+flavor.marlin.set_position_call = '^G92 ';
+flavor.marlin.pause_print_call = '^M25 ';
 
 %% Printer Constants
 % Ender 3 V2 Printer
-printer.ender3v2.name = "Ender 3 v2"
+printer.ender3v2.name = "Ender 3 v2";
 printer.ender3v2.starting_code = ["; Ender 3 v2 Custom Start G-code",char(10),...
 "G92 E0 ; Reset Extruder",char(10),...
 "G28 ; Home all axes",char(10),...
@@ -33,7 +38,7 @@ printer.ender3v2.ending_code = ["G91 ;Relative positioning",char(10),...
 "G1 X5 Y5 F3000 ;Wipe out",char(10),...
 "G1 Z10 ;Raise Z more",char(10),...
 "G90 ;Absolute positionning"];
-printer.ender3v2.language = "marlin";
+printer.ender3v2.flavor = "marlin";
 % For relative position error checking, should position changes be implemented in the future.
 printer.ender3v2.bed_size.x = 220;
 printer.ender3v2.bed_size.y = 220;
